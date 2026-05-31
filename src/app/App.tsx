@@ -6,6 +6,7 @@ import { DepartmentManagement } from './components/DepartmentManagement';
 import { UserManagement } from './components/UserManagement';
 import { RoleManagement } from './components/RoleManagement';
 import { KnowledgeBaseDetail } from './components/KnowledgeBaseDetail';
+import { NewKnowledgeBaseDialog } from './components/NewKnowledgeBaseDialog';
 import { Search, Plus, Home as HomeIcon } from 'lucide-react';
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
   const [activeItem, setActiveItem] = useState('home');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [selectedKnowledgeBase, setSelectedKnowledgeBase] = useState<string | null>(null);
+  const [newKnowledgeBaseDialogOpen, setNewKnowledgeBaseDialogOpen] = useState(false);
 
   useEffect(() => {
     const loggedIn = localStorage.getItem('isLoggedIn');
@@ -132,7 +134,10 @@ export default function App() {
             <div className="flex-1"></div>
 
             {/* New Knowledge Base Button */}
-            <button className="px-5 py-1.5 bg-[#0071e3] hover:bg-[#0077ed] rounded-lg transition-all duration-150 flex items-center gap-2 text-[14px] font-medium text-white">
+            <button
+              onClick={() => setNewKnowledgeBaseDialogOpen(true)}
+              className="px-5 py-1.5 bg-[#0071e3] hover:bg-[#0077ed] rounded-lg transition-all duration-150 flex items-center gap-2 text-[14px] font-medium text-white"
+            >
               <Plus className="w-[16px] h-[16px]" strokeWidth={2} />
               新建知识库
             </button>
@@ -151,7 +156,7 @@ export default function App() {
                 onClick={() => handleKnowledgeBaseClick(kb.title)}
               />
             ))}
-            <NewKnowledgeBaseCard />
+            <NewKnowledgeBaseCard onClick={() => setNewKnowledgeBaseDialogOpen(true)} />
           </div>
         </div>
       </>
@@ -182,6 +187,12 @@ export default function App() {
       <div className="flex-1 flex flex-col overflow-hidden">
         {renderMainContent()}
       </div>
+
+      {/* New Knowledge Base Dialog */}
+      <NewKnowledgeBaseDialog
+        open={newKnowledgeBaseDialogOpen}
+        onOpenChange={setNewKnowledgeBaseDialogOpen}
+      />
     </div>
   );
 }

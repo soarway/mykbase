@@ -67,9 +67,16 @@ export function KnowledgeBaseCard({ title, fileCount, storage, onClick }: Knowle
   );
 }
 
-export function NewKnowledgeBaseCard() {
+interface NewKnowledgeBaseCardProps {
+  onClick?: () => void;
+}
+
+export function NewKnowledgeBaseCard({ onClick }: NewKnowledgeBaseCardProps) {
   return (
-    <button className="group bg-white rounded-[18px] border-2 border-dashed border-[#0071e3]/40 p-6 hover:bg-[#fff5f0] hover:border-[#ff6b35]/40 hover:shadow-[0_4px_20px_rgba(255,107,53,0.15)] transition-all duration-300 ease-out h-full min-h-[200px] flex flex-col items-center justify-center">
+    <button
+      onClick={onClick}
+      className="group bg-white rounded-[18px] border-2 border-dashed border-[#0071e3]/40 p-6 hover:bg-[#fff5f0] hover:border-[#ff6b35]/40 hover:shadow-[0_4px_20px_rgba(255,107,53,0.15)] transition-all duration-300 ease-out h-full min-h-[200px] flex flex-col items-center justify-center"
+    >
       <div className="w-14 h-14 rounded-full bg-[#0071e3] group-hover:bg-[#ff6b35] flex items-center justify-center mb-4 transition-all duration-300">
         <span className="text-[32px] text-white transition-colors font-light leading-none">+</span>
       </div>
