@@ -208,15 +208,7 @@ export function Sidebar({ activeItem, onItemClick, collapsed, onToggleCollapse, 
       </div>
 
       {/* Navigation */}
-<<<<<<< HEAD
-<<<<<<< HEAD
       <nav className="px-3 py-4">
-=======
-      <nav className="flex-1 px-3 py-4 overflow-y-auto">
->>>>>>> c6d9518 (Add development server configuration for local setup)
-=======
-      <nav className="px-3 py-4">
->>>>>>> d135b39 (Add change password and change avatar dialogs)
         {menuItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeItem === item.id;
@@ -241,18 +233,9 @@ export function Sidebar({ activeItem, onItemClick, collapsed, onToggleCollapse, 
         })}
       </nav>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
       {/* Spacer to push user profile to bottom */}
       <div className="flex-1"></div>
 
-=======
->>>>>>> c6d9518 (Add development server configuration for local setup)
-=======
-      {/* Spacer to push user profile to bottom */}
-      <div className="flex-1"></div>
-
->>>>>>> d135b39 (Add change password and change avatar dialogs)
       {/* User Profile */}
       <div className="p-4 border-t border-[#d2d2d7]/50">
         <div className="flex items-center gap-0">
