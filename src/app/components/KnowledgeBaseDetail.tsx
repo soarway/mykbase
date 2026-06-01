@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Search, Plus, Upload, Download, MessageCircle, FileText, Folder, User, Settings, Send, X, FolderUp } from 'lucide-react';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { NewDocumentDialog } from './NewDocumentDialog';
+import { NewFolderDialog } from './NewFolderDialog';
 
 interface FileItem {
   id: string;
@@ -42,6 +45,10 @@ export function KnowledgeBaseDetail({ knowledgeBaseName, onBack }: KnowledgeBase
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [currentFolderPath, setCurrentFolderPath] = useState<string[]>([]); // 当前文件夹路径
+  const [newDocumentDialogOpen, setNewDocumentDialogOpen] = useState(false);
+  const [newFolderDialogOpen, setNewFolderDialogOpen] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const folderInputRef = useRef<HTMLInputElement>(null);
 
   const totalPages = Math.ceil(mockFiles.length / pageSize);
   const isInSubfolder = currentFolderPath.length > 0; // 是否在子文件夹中
@@ -54,6 +61,30 @@ export function KnowledgeBaseDetail({ knowledgeBaseName, onBack }: KnowledgeBase
   const handleFolderClick = (folderName: string) => {
     // 进入文件夹
     setCurrentFolderPath(prev => [...prev, folderName]);
+  };
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      console.log('上传文件:', Array.from(files).map(f => f.name));
+      alert(`已选择 ${files.length} 个文件进行上传`);
+      // 重置input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
+
+  const handleFolderUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      console.log('上传文件夹:', Array.from(files).map(f => f.webkitRelativePath || f.name));
+      alert(`已选择文件夹，共 ${files.length} 个文件进行上传`);
+      // 重置input
+      if (folderInputRef.current) {
+        folderInputRef.current.value = '';
+      }
+    }
   };
 
   const handleSendMessage = () => {
@@ -124,14 +155,94 @@ export function KnowledgeBaseDetail({ knowledgeBaseName, onBack }: KnowledgeBase
             <div className="flex-1"></div>
 
             {/* Action Buttons */}
-            <button className="px-4 py-1.5 bg-white rounded-lg border border-[#d2d2d7] hover:bg-[#f5f5f7] transition-all duration-150 flex items-center gap-2 text-[14px] font-medium text-[#1d1d1f]">
-              <Plus className="w-[16px] h-[16px]" strokeWidth={2} />
-              新建
-            </button>
-            <button className="px-4 py-1.5 bg-white rounded-lg border border-[#d2d2d7] hover:bg-[#f5f5f7] transition-all duration-150 flex items-center gap-2 text-[14px] font-medium text-[#1d1d1f]">
-              <Upload className="w-[16px] h-[16px]" strokeWidth={1.5} />
-              上传
-            </button>
+            {/* New Button Dropdown */}
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger asChild>
+                <button className="px-4 py-1.5 bg-white rounded-lg border border-[#d2d2d7] hover:bg-[#f5f5f7] transition-all duration-150 flex items-center gap-2 text-[14px] font-medium text-[#1d1d1f]">
+                  <Plus className="w-[16px] h-[16px]" strokeWidth={2} />
+                  新建
+                </button>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Portal>
+                <DropdownMenu.Content
+                  className="min-w-[140px] bg-white rounded-xl border border-[#d2d2d7] shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-2 z-50"
+                  sideOffset={5}
+                >
+                  <DropdownMenu.Item
+                    onClick={() => setNewDocumentDialogOpen(true)}
+                    className="flex flex-col items-center gap-2 px-4 py-3 rounded-lg hover:bg-[#f5f5f7] outline-none cursor-pointer transition-colors"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-[#0071e3]/10 flex items-center justify-center">
+                      <FileText className="w-5 h-5 text-[#0071e3]" strokeWidth={1.5} />
+                    </div>
+                    <span className="text-[14px] text-[#1d1d1f]">文档</span>
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item
+                    onClick={() => setNewFolderDialogOpen(true)}
+                    className="flex flex-col items-center gap-2 px-4 py-3 rounded-lg hover:bg-[#f5f5f7] outline-none cursor-pointer transition-colors"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-[#FFB020]/10 flex items-center justify-center">
+                      <Folder className="w-5 h-5 text-[#FFB020]" strokeWidth={1.5} />
+                    </div>
+                    <span className="text-[14px] text-[#1d1d1f]">文件夹</span>
+                  </DropdownMenu.Item>
+                </DropdownMenu.Content>
+              </DropdownMenu.Portal>
+            </DropdownMenu.Root>
+
+            {/* Upload Button Dropdown */}
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger asChild>
+                <button className="px-4 py-1.5 bg-white rounded-lg border border-[#d2d2d7] hover:bg-[#f5f5f7] transition-all duration-150 flex items-center gap-2 text-[14px] font-medium text-[#1d1d1f]">
+                  <Upload className="w-[16px] h-[16px]" strokeWidth={1.5} />
+                  上传
+                </button>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Portal>
+                <DropdownMenu.Content
+                  className="min-w-[140px] bg-white rounded-xl border border-[#d2d2d7] shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-2 z-50"
+                  sideOffset={5}
+                >
+                  <DropdownMenu.Item
+                    onClick={() => fileInputRef.current?.click()}
+                    className="flex flex-col items-center gap-2 px-4 py-3 rounded-lg hover:bg-[#f5f5f7] outline-none cursor-pointer transition-colors"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-[#0071e3]/10 flex items-center justify-center">
+                      <FileText className="w-5 h-5 text-[#0071e3]" strokeWidth={1.5} />
+                    </div>
+                    <span className="text-[14px] text-[#1d1d1f]">文件</span>
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item
+                    onClick={() => folderInputRef.current?.click()}
+                    className="flex flex-col items-center gap-2 px-4 py-3 rounded-lg hover:bg-[#f5f5f7] outline-none cursor-pointer transition-colors"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-[#FFB020]/10 flex items-center justify-center">
+                      <Folder className="w-5 h-5 text-[#FFB020]" strokeWidth={1.5} />
+                    </div>
+                    <span className="text-[14px] text-[#1d1d1f]">文件夹</span>
+                  </DropdownMenu.Item>
+                </DropdownMenu.Content>
+              </DropdownMenu.Portal>
+            </DropdownMenu.Root>
+
+            {/* Hidden file inputs */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              multiple
+              accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.jpg,.jpeg,.png,.gif,.mp4,.mov,.avi"
+              onChange={handleFileUpload}
+              className="hidden"
+            />
+            <input
+              ref={folderInputRef}
+              type="file"
+              multiple
+              webkitdirectory=""
+              directory=""
+              onChange={handleFolderUpload}
+              className="hidden"
+            />
             <button className="px-4 py-1.5 bg-white rounded-lg border border-[#d2d2d7] hover:bg-[#f5f5f7] transition-all duration-150 flex items-center gap-2 text-[14px] font-medium text-[#1d1d1f]">
               <Download className="w-[16px] h-[16px]" strokeWidth={1.5} />
               导入
@@ -364,6 +475,16 @@ export function KnowledgeBaseDetail({ knowledgeBaseName, onBack }: KnowledgeBase
           </div>
         </div>
       )}
+
+      {/* Dialogs */}
+      <NewDocumentDialog
+        open={newDocumentDialogOpen}
+        onOpenChange={setNewDocumentDialogOpen}
+      />
+      <NewFolderDialog
+        open={newFolderDialogOpen}
+        onOpenChange={setNewFolderDialogOpen}
+      />
     </div>
   );
 }
