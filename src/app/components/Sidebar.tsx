@@ -21,6 +21,8 @@ import {
   PanelLeftOpen
 } from 'lucide-react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { ChangePasswordDialog } from './ChangePasswordDialog';
+import { ChangeAvatarDialog } from './ChangeAvatarDialog';
 
 interface SidebarProps {
   activeItem: string;
@@ -32,6 +34,8 @@ interface SidebarProps {
 
 export function Sidebar({ activeItem, onItemClick, collapsed, onToggleCollapse, onLogout }: SidebarProps) {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [passwordDialogOpen, setPasswordDialogOpen] = useState(false);
+  const [avatarDialogOpen, setAvatarDialogOpen] = useState(false);
 
   const menuItems = [
     { id: 'home', label: '知识库首页', icon: Home },
@@ -102,11 +106,17 @@ export function Sidebar({ activeItem, onItemClick, collapsed, onToggleCollapse, 
                 sideOffset={5}
                 side="right"
               >
-                <DropdownMenu.Item className="flex items-center gap-3 px-3 py-2 text-[13px] text-[#1d1d1f] rounded-lg hover:bg-[#0071e3]/20 outline-none cursor-pointer transition-colors">
+                <DropdownMenu.Item
+                  className="flex items-center gap-3 px-3 py-2 text-[13px] text-[#1d1d1f] rounded-lg hover:bg-[#0071e3]/20 outline-none cursor-pointer transition-colors"
+                  onClick={() => setPasswordDialogOpen(true)}
+                >
                   <KeyRound className="w-[16px] h-[16px]" strokeWidth={1.5} />
                   修改密码
                 </DropdownMenu.Item>
-                <DropdownMenu.Item className="flex items-center gap-3 px-3 py-2 text-[13px] text-[#1d1d1f] rounded-lg hover:bg-[#0071e3]/20 outline-none cursor-pointer transition-colors">
+                <DropdownMenu.Item
+                  className="flex items-center gap-3 px-3 py-2 text-[13px] text-[#1d1d1f] rounded-lg hover:bg-[#0071e3]/20 outline-none cursor-pointer transition-colors"
+                  onClick={() => setAvatarDialogOpen(true)}
+                >
                   <UserCircle className="w-[16px] h-[16px]" strokeWidth={1.5} />
                   修改头像
                 </DropdownMenu.Item>
@@ -199,10 +209,14 @@ export function Sidebar({ activeItem, onItemClick, collapsed, onToggleCollapse, 
 
       {/* Navigation */}
 <<<<<<< HEAD
+<<<<<<< HEAD
       <nav className="px-3 py-4">
 =======
       <nav className="flex-1 px-3 py-4 overflow-y-auto">
 >>>>>>> c6d9518 (Add development server configuration for local setup)
+=======
+      <nav className="px-3 py-4">
+>>>>>>> d135b39 (Add change password and change avatar dialogs)
         {menuItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeItem === item.id;
@@ -228,11 +242,17 @@ export function Sidebar({ activeItem, onItemClick, collapsed, onToggleCollapse, 
       </nav>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       {/* Spacer to push user profile to bottom */}
       <div className="flex-1"></div>
 
 =======
 >>>>>>> c6d9518 (Add development server configuration for local setup)
+=======
+      {/* Spacer to push user profile to bottom */}
+      <div className="flex-1"></div>
+
+>>>>>>> d135b39 (Add change password and change avatar dialogs)
       {/* User Profile */}
       <div className="p-4 border-t border-[#d2d2d7]/50">
         <div className="flex items-center gap-0">
@@ -261,11 +281,17 @@ export function Sidebar({ activeItem, onItemClick, collapsed, onToggleCollapse, 
                 sideOffset={5}
                 align="end"
               >
-                <DropdownMenu.Item className="flex items-center gap-3 px-3 py-2 text-[13px] text-[#1d1d1f] rounded-lg hover:bg-[#0071e3]/20 outline-none cursor-pointer transition-colors">
+                <DropdownMenu.Item
+                  className="flex items-center gap-3 px-3 py-2 text-[13px] text-[#1d1d1f] rounded-lg hover:bg-[#0071e3]/20 outline-none cursor-pointer transition-colors"
+                  onClick={() => setPasswordDialogOpen(true)}
+                >
                   <KeyRound className="w-[16px] h-[16px]" strokeWidth={1.5} />
                   修改密码
                 </DropdownMenu.Item>
-                <DropdownMenu.Item className="flex items-center gap-3 px-3 py-2 text-[13px] text-[#1d1d1f] rounded-lg hover:bg-[#0071e3]/20 outline-none cursor-pointer transition-colors">
+                <DropdownMenu.Item
+                  className="flex items-center gap-3 px-3 py-2 text-[13px] text-[#1d1d1f] rounded-lg hover:bg-[#0071e3]/20 outline-none cursor-pointer transition-colors"
+                  onClick={() => setAvatarDialogOpen(true)}
+                >
                   <UserCircle className="w-[16px] h-[16px]" strokeWidth={1.5} />
                   修改头像
                 </DropdownMenu.Item>
@@ -325,6 +351,10 @@ export function Sidebar({ activeItem, onItemClick, collapsed, onToggleCollapse, 
           </DropdownMenu.Root>
         </div>
       </div>
+
+      {/* Dialogs */}
+      <ChangePasswordDialog open={passwordDialogOpen} onOpenChange={setPasswordDialogOpen} />
+      <ChangeAvatarDialog open={avatarDialogOpen} onOpenChange={setAvatarDialogOpen} />
     </div>
   );
 }
