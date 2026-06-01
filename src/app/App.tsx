@@ -87,7 +87,7 @@ export default function App() {
       return <RecentAccess />;
     }
 
-    if (activeItem === 'favorite') {
+    if (activeItem === 'favorites') {
       return <MyFavorites />;
     }
 
