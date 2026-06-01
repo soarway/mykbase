@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, Plus, Upload, Download, MessageCircle, FileText, Folder, User, Settings, Send, X } from 'lucide-react';
+import { Search, Plus, Upload, Download, MessageCircle, FileText, Folder, User, Settings, Send, X, CornerUpLeft } from 'lucide-react';
 
 interface FileItem {
   id: string;
@@ -41,8 +41,20 @@ export function KnowledgeBaseDetail({ knowledgeBaseName, onBack }: KnowledgeBase
   const [aiPanelOpen, setAiPanelOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
+  const [currentFolderPath, setCurrentFolderPath] = useState<string[]>([]); // 当前文件夹路径
 
   const totalPages = Math.ceil(mockFiles.length / pageSize);
+  const isInSubfolder = currentFolderPath.length > 0; // 是否在子文件夹中
+
+  const handleGoBack = () => {
+    // 返回上一级目录
+    setCurrentFolderPath(prev => prev.slice(0, -1));
+  };
+
+  const handleFolderClick = (folderName: string) => {
+    // 进入文件夹
+    setCurrentFolderPath(prev => [...prev, folderName]);
+  };
 
   const handleSendMessage = () => {
     if (!inputMessage.trim()) return;
@@ -154,8 +166,38 @@ export function KnowledgeBaseDetail({ knowledgeBaseName, onBack }: KnowledgeBase
                 </tr>
               </thead>
               <tbody>
+                {/* Return to parent folder row */}
+                {isInSubfolder && (
+                  <tr
+                    onClick={handleGoBack}
+                    className="border-b border-[#d2d2d7]/50 hover:bg-[#f5f5f7]/50 transition-colors cursor-pointer"
+                  >
+                    <td className="px-6 py-3">
+                      <div className="flex items-center gap-3">
+                        <CornerUpLeft className="w-5 h-5 text-[#86868b]" strokeWidth={1.5} />
+                        <span className="text-[14px] text-[#86868b]">..</span>
+                      </div>
+                    </td>
+                    {!aiPanelOpen && (
+                      <>
+                        <td className="px-6 py-3 text-[14px] text-[#86868b]"></td>
+                        <td className="px-6 py-3 text-[14px] text-[#86868b]"></td>
+                      </>
+                    )}
+                  </tr>
+                )}
+
+                {/* File list */}
                 {mockFiles.map((file) => (
-                  <tr key={file.id} className="border-b border-[#d2d2d7]/50 hover:bg-[#f5f5f7]/50 transition-colors cursor-pointer">
+                  <tr
+                    key={file.id}
+                    onClick={() => {
+                      if (file.type === 'folder') {
+                        handleFolderClick(file.name);
+                      }
+                    }}
+                    className="border-b border-[#d2d2d7]/50 hover:bg-[#f5f5f7]/50 transition-colors cursor-pointer"
+                  >
                     <td className="px-6 py-3">
                       <div className="flex items-center gap-3">
                         {file.type === 'folder' ? (
