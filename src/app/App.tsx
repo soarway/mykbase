@@ -9,6 +9,7 @@ import { KnowledgeBaseDetail } from './components/KnowledgeBaseDetail';
 import { NewKnowledgeBaseDialog } from './components/NewKnowledgeBaseDialog';
 import { RecentAccess } from './components/RecentAccess';
 import { MyFavorites } from './components/MyFavorites';
+import { MyLikes } from './components/MyLikes';
 import { Search, Plus, Home as HomeIcon } from 'lucide-react';
 
 export default function App() {
@@ -89,6 +90,10 @@ export default function App() {
 
     if (activeItem === 'favorites') {
       return <MyFavorites />;
+    }
+
+    if (activeItem === 'likes') {
+      return <MyLikes />;
     }
 
     if (selectedKnowledgeBase) {
