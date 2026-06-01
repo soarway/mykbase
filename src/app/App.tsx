@@ -12,6 +12,7 @@ import { MyFavorites } from './components/MyFavorites';
 import { MyLikes } from './components/MyLikes';
 import { MyComments } from './components/MyComments';
 import { MyUploads } from './components/MyUploads';
+import { MyAIConversations } from './components/MyAIConversations';
 import { Search, Plus, Home as HomeIcon } from 'lucide-react';
 
 export default function App() {
@@ -104,6 +105,10 @@ export default function App() {
 
     if (activeItem === 'uploads') {
       return <MyUploads />;
+    }
+
+    if (activeItem === 'ai') {
+      return <MyAIConversations />;
     }
 
     if (selectedKnowledgeBase) {
