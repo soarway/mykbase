@@ -198,7 +198,11 @@ export function Sidebar({ activeItem, onItemClick, collapsed, onToggleCollapse, 
       </div>
 
       {/* Navigation */}
+<<<<<<< HEAD
       <nav className="px-3 py-4">
+=======
+      <nav className="flex-1 px-3 py-4 overflow-y-auto">
+>>>>>>> c6d9518 (Add development server configuration for local setup)
         {menuItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeItem === item.id;
@@ -223,9 +227,12 @@ export function Sidebar({ activeItem, onItemClick, collapsed, onToggleCollapse, 
         })}
       </nav>
 
+<<<<<<< HEAD
       {/* Spacer to push user profile to bottom */}
       <div className="flex-1"></div>
 
+=======
+>>>>>>> c6d9518 (Add development server configuration for local setup)
       {/* User Profile */}
       <div className="p-4 border-t border-[#d2d2d7]/50">
         <div className="flex items-center gap-0">
