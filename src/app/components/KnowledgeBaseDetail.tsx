@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, Plus, Upload, Download, MessageCircle, FileText, Folder, User, Settings, Send, X, CornerUpLeft } from 'lucide-react';
+import { Search, Plus, Upload, Download, MessageCircle, FileText, Folder, User, Settings, Send, X, FolderUp } from 'lucide-react';
 
 interface FileItem {
   id: string;
@@ -170,12 +170,12 @@ export function KnowledgeBaseDetail({ knowledgeBaseName, onBack }: KnowledgeBase
                 {isInSubfolder && (
                   <tr
                     onClick={handleGoBack}
-                    className="border-b border-[#d2d2d7]/50 hover:bg-[#f5f5f7]/50 transition-colors cursor-pointer"
+                    className="border-b border-[#d2d2d7]/50 hover:bg-[#f5f5f7] transition-colors cursor-pointer group"
                   >
                     <td className="px-6 py-3">
                       <div className="flex items-center gap-3">
-                        <CornerUpLeft className="w-5 h-5 text-[#86868b]" strokeWidth={1.5} />
-                        <span className="text-[14px] text-[#86868b]">..</span>
+                        <FolderUp className="w-5 h-5 text-[#0071e3] group-hover:text-[#0077ed]" strokeWidth={1.5} />
+                        <span className="text-[17px] font-medium text-[#86868b] group-hover:text-[#1d1d1f]">..</span>
                       </div>
                     </td>
                     {!aiPanelOpen && (
