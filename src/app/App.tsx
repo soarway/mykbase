@@ -7,6 +7,7 @@ import { UserManagement } from './components/UserManagement';
 import { RoleManagement } from './components/RoleManagement';
 import { KnowledgeBaseDetail } from './components/KnowledgeBaseDetail';
 import { NewKnowledgeBaseDialog } from './components/NewKnowledgeBaseDialog';
+import { RecentAccess } from './components/RecentAccess';
 import { Search, Plus, Home as HomeIcon } from 'lucide-react';
 
 export default function App() {
@@ -79,6 +80,10 @@ export default function App() {
 
     if (activeItem === 'role') {
       return <RoleManagement />;
+    }
+
+    if (activeItem === 'recent') {
+      return <RecentAccess />;
     }
 
     if (selectedKnowledgeBase) {
