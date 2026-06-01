@@ -13,6 +13,7 @@ import { MyLikes } from './components/MyLikes';
 import { MyComments } from './components/MyComments';
 import { MyUploads } from './components/MyUploads';
 import { MyAIConversations } from './components/MyAIConversations';
+import { SystemSettings } from './components/SystemSettings';
 import { Search, Plus, Home as HomeIcon } from 'lucide-react';
 
 export default function App() {
@@ -109,6 +110,10 @@ export default function App() {
 
     if (activeItem === 'ai') {
       return <MyAIConversations />;
+    }
+
+    if (activeItem === 'settings') {
+      return <SystemSettings />;
     }
 
     if (selectedKnowledgeBase) {

@@ -170,7 +170,10 @@ export function Sidebar({ activeItem, onItemClick, collapsed, onToggleCollapse, 
                   <Shield className="w-[16px] h-[16px]" strokeWidth={1.5} />
                   角色管理
                 </DropdownMenu.Item>
-                <DropdownMenu.Item className="flex items-center gap-3 px-3 py-2 text-[13px] text-[#1d1d1f] rounded-lg hover:bg-[#0071e3]/20 outline-none cursor-pointer transition-colors">
+                <DropdownMenu.Item
+                  className="flex items-center gap-3 px-3 py-2 text-[13px] text-[#1d1d1f] rounded-lg hover:bg-[#0071e3]/20 outline-none cursor-pointer transition-colors"
+                  onClick={() => onItemClick('settings')}
+                >
                   <Cog className="w-[16px] h-[16px]" strokeWidth={1.5} />
                   系统设置
                 </DropdownMenu.Item>
@@ -325,7 +328,10 @@ export function Sidebar({ activeItem, onItemClick, collapsed, onToggleCollapse, 
                   <Shield className="w-[16px] h-[16px]" strokeWidth={1.5} />
                   角色管理
                 </DropdownMenu.Item>
-                <DropdownMenu.Item className="flex items-center gap-3 px-3 py-2 text-[13px] text-[#1d1d1f] rounded-lg hover:bg-[#0071e3]/20 outline-none cursor-pointer transition-colors">
+                <DropdownMenu.Item
+                  className="flex items-center gap-3 px-3 py-2 text-[13px] text-[#1d1d1f] rounded-lg hover:bg-[#0071e3]/20 outline-none cursor-pointer transition-colors"
+                  onClick={() => onItemClick('settings')}
+                >
                   <Cog className="w-[16px] h-[16px]" strokeWidth={1.5} />
                   系统设置
                 </DropdownMenu.Item>
