@@ -58,7 +58,7 @@ export function Sidebar({ activeItem, onItemClick, collapsed, onToggleCollapse, 
         </div>
 
         {/* Collapsed Menu Items */}
-        <nav className="flex-1 px-2 py-4 overflow-y-auto w-full">
+        <nav className="px-2 py-4 w-full">
           {menuItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeItem === item.id;
@@ -82,6 +82,9 @@ export function Sidebar({ activeItem, onItemClick, collapsed, onToggleCollapse, 
             );
           })}
         </nav>
+
+        {/* Spacer to push user profile to bottom */}
+        <div className="flex-1"></div>
 
         {/* Collapsed User Profile */}
         <div className="p-3 border-t border-[#d2d2d7]/50 w-full flex flex-col items-center gap-2">
@@ -195,7 +198,7 @@ export function Sidebar({ activeItem, onItemClick, collapsed, onToggleCollapse, 
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 overflow-y-auto">
+      <nav className="px-3 py-4">
         {menuItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeItem === item.id;
@@ -219,6 +222,9 @@ export function Sidebar({ activeItem, onItemClick, collapsed, onToggleCollapse, 
           );
         })}
       </nav>
+
+      {/* Spacer to push user profile to bottom */}
+      <div className="flex-1"></div>
 
       {/* User Profile */}
       <div className="p-4 border-t border-[#d2d2d7]/50">
